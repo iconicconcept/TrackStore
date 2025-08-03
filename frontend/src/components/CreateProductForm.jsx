@@ -3,7 +3,7 @@ import { useProductStore } from "../stores/useProductStore";
 import { motion } from "framer-motion";
 import { PlusCircle, Upload, Loader } from "lucide-react";
 import { categories } from "../utils/data";
-import ProductFormInput from "./productFormInput";
+import ProductFormInput from "./ProductFormInput";
 import toast from "react-hot-toast";
 
 const CreateProductForm = () => {
