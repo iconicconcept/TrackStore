@@ -1,6 +1,6 @@
 import Coupon from "../models/coupon.model.js";
 import Order from "../models/order.model.js";
-//import Cart from "../models/cart.model.js";
+import User from "../models/user.model.js";
 import { stripe } from "../lib/stripe.js";
 
 export const createCheckOutSession = async (req, res) => {
@@ -114,9 +114,9 @@ export const checkCheckoutSuccess = async (req, res) => {
         stripeSessionId: sessionId,
       });
 
-      // Clear the user's cart from the database after successful order creation
       await newOrder.save();
-      //await Cart.findOneAndUpdate({ user: session.metadata.userId }, { $set: { products: [] } });
+      // Clear the user's cart from the database after successful order creation
+      await User.findByIdAndUpdate(session.metadata.userId, { $set: { cartItems: [] } });
 
 
       res.status(200).json({
