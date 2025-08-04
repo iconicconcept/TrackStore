@@ -87,4 +87,13 @@ const App = () => {
   );
 };
 
+
+// # This is the configuration for Netlify
+
+// [[redirects]]
+//   from = "/*"
+//   to = "/index.html"
+//   status = 200
+
+
 export default App;

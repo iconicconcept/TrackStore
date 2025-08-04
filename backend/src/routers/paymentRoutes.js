@@ -5,6 +5,6 @@ import { createCheckOutSession, checkCheckoutSuccess } from "../controllers/paym
 const router = express.Router();
 
 router.post("/create-checkout-session", protectRoute, createCheckOutSession);
-router.post("/checkout-success", checkCheckoutSuccess)
+router.post("/checkout-success"pa, checkCheckoutSuccess)
 
 export default router;
