@@ -1,9 +1,9 @@
 import express from "express";
-import { adminRoute, protectRoute } from "../middleware/authMiddleware.js";
+import { adminRoute, protectRoute } from "../middleware/auth.middleware.js";
 import {
   getAnalyticsData,
   getDailySalesData,
-} from "../controllers/analyticsController.js";
+} from "../controllers/analytics.controller.js";
 
 const router = express.Router();
 
@@ -21,8 +21,8 @@ router.get("/", protectRoute, adminRoute, async (req, res) => {
       dailySalesData,
     });
   } catch (error) {
-    console.error("Error in getting the analytics", err.message);
-    res.status(401).json({ message: "Internal server error" });
+    console.log("Error in analytics route", error.message);
+    res.status(500).json({ message: "Server error", error: error.message });
   }
 });
 
