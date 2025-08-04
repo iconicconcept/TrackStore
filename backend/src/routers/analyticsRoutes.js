@@ -3,7 +3,7 @@ import { adminRoute, protectRoute } from "../middleware/authMiddleware.js";
 import {
   getAnalyticsData,
   getDailySalesData,
-} from "../controllers/analytics.controller.js";
+} from "../controllers/analyticsController.js";
 
 const router = express.Router();
 
