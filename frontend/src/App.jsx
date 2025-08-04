@@ -74,12 +74,12 @@ const App = () => {
 
           <Route
             path="/purchase-success"
-            element={user ? <PurchaseSuccess /> : <Navigate to="/login" />}
+            element={<PurchaseSuccess />}
           />
 
           <Route
             path="/purchase-cancel"
-            element={user ? <PurchaseCancel /> : <Navigate to="/login" />}
+            element={<PurchaseCancel />}
           />
         </Routes>
       </div>
