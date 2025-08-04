@@ -15,16 +15,20 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 7000;
 
-if (process.env.NODE_ENV !== "production") {
-  app.use(
-    cors({
-      origin: "http://localhost:5173",
-      methods: "GET,POST,PUT,DELETE,PATCH,OPTIONS",
-      allowedHeaders: "Content-Type, Authorization",
-      credentials: true,
-    })
-  );
-}
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://trackstore-coral.vercel.app",
+  "https://trackstores.netlify.app",
+];
+
+app.use(
+  cors({
+    origin: allowedOrigins,
+    methods: "GET,POST,PUT,DELETE,PATCH,OPTIONS",
+    allowedHeaders: "Content-Type, Authorization",
+    credentials: true,
+  })
+);
 
 app.use(express.json({ limit: "10mb" }));
 app.use(cookieParser());

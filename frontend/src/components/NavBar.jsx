@@ -20,7 +20,7 @@ const NavBar = () => {
     transition-all duration-300 border-b border-emerald-800"
     >
       <div className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between flex-wrap">
+        <div className="flex items-center justify-between flex-wrap gap-2 md:gap-0">
           <Link
             to="/"
             className="text-2xl font-bold text-emerald-400 items-center space-x-2 flex cursor-pointer"
