@@ -14,6 +14,7 @@ import {
 } from "recharts";
 import AnalyticsCard from "../components/AnalyticsCard";
 import Loading from "./Loading";
+import CustomTooltip from "./CustomToolTip";
 
 const AnalyticsTab = () => {
   const [analyticsData, setAnalyticsData] = useState({
@@ -40,6 +41,17 @@ const AnalyticsTab = () => {
 
     fetchAnalyticsData();
   }, []);
+
+  
+
+  const formatDate = (tickItem) => {
+    const date = new Date(tickItem);
+    return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+  };
+
+  const formatRevenue = (value) => {
+    return value >= 1000 ? `₦${(value / 1000).toFixed(0)}k` : `₦${value}`;
+  };
 
   if (isLoading) {
     return <Loading />;
@@ -86,10 +98,18 @@ const AnalyticsTab = () => {
         <ResponsiveContainer width="100%" height={400}>
           <LineChart data={dailySalesData}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" stroke="#D1D5DB" />
+            <XAxis dataKey="name" stroke="#D1D5DB" tickFormatter={formatDate} />
             <YAxis yAxisId="left" stroke="#D1D5DB" />
-            <YAxis yAxisId="right" orientation="right" stroke="#D1D5DB" />
-            <Tooltip />
+            <YAxis
+              yAxisId="right"
+              orientation="right"
+              stroke="#D1D5DB"
+              tickFormatter={formatRevenue}
+            />
+            <Tooltip
+              content={<CustomTooltip/>}
+              cursor={{ fill: "rgba(107, 114, 128, 0.1)" }}
+            />
             <Legend />
             <Line
               yAxisId="left"
