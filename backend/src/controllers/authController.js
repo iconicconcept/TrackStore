@@ -26,13 +26,13 @@ const setCookies = (res, accessToken, refreshToken) => {
   res.cookie("accessToken", accessToken, {
     httpOnly: true, //prevent Cross-site scripting attacks(XSS),
     secure: process.env.NODE_ENV === "production",
-    sameSite: "strict", //prevent Cross-site request forgery attacks(CSRF),
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Used 'none' for cross-site production, 'lax' for development
     maxAge: 15 * 60 * 1000, //15 minutes
   });
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true, //prevent Cross-site scripting attack attacks(XSS),
     secure: process.env.NODE_ENV === "production",
-    sameSite: "strict", //prevent Cross-site request forgery attacks(CSRF),
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Used 'none' for cross-site production, 'lax' for development
     maxAge: 7 * 24 * 60 * 60 * 1000, //7 days
   });
 };
@@ -47,14 +47,6 @@ export const signupHandler = async (req, res) => {
     } else {
       const newUser = new User({ fullName, email, password });
       const user = await newUser.save();
-      // const payload = {
-      //     id: user.id,
-      //     fullName: user.fullName,
-      //     email: user.email,
-      //     isAdmin: user.isAdmin || false
-      // };
-      // const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "24h" });
-      // res.status(200).json({ token})
 
       //authenticate
       const { accessToken, refreshToken } = generateTokens(user._id);
@@ -156,7 +148,7 @@ export const refreshToken = async (req, res) => {
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
       maxAge: 15 * 60 * 1000,
     });
 
